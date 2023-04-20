@@ -17,9 +17,8 @@ def init():
 
     model = StableDiffusionPipeline.from_pretrained(model_name,
                                                     custom_pipeline="stable_diffusion_tensorrt_txt2img",
-                                                    revision='fp16',
                                                     torch_dtype=torch.float16,
-                                                    scheduler=scheduler).set_cached_folder(model_name, revision='fp16').to("cuda")
+                                                    scheduler=scheduler).set_cached_folder(model_name).to("cuda")
 
 
 def inference(model_inputs:dict):
