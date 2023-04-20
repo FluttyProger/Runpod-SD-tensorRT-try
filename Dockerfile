@@ -12,6 +12,10 @@ RUN pip3 install --upgrade pip
 ADD requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
+RUN python3 -m pip install --upgrade tensorrt
+RUN python3 -m pip install --upgrade polygraphy onnx-graphsurgeon --extra-index-url https://pypi.ngc.nvidia.com
+RUN python3 -m pip install onnxruntime
+
 # We add the banana boilerplate here
 ADD server.py .
 
