@@ -23,10 +23,6 @@ ADD server.py .
 ARG MODEL_NAME
 ENV MODEL_NAME=XpucT/Deliberate
 
-# Add your model weight files 
-ADD download.py .
-RUN python3 download.py
-
 RUN git clone https://github.com/huggingface/diffusers
 
 WORKDIR /diffusers
@@ -36,6 +32,10 @@ RUN pip install .
 WORKDIR /
 
 RUN pip3 install runpod
+
+# Add your model weight files 
+ADD download.py .
+RUN python3 download.py
 
 # Add your custom app code, init() and inference()
 ADD app.py .
