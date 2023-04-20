@@ -1,5 +1,6 @@
 import os
 import torch
+from torch import autocast
 import base64
 from io import BytesIO
 from transformers import pipeline
@@ -19,28 +20,28 @@ def init():
                                                     revision='fp16',
                                                     torch_dtype=torch.float16,
                                                     scheduler=scheduler).set_cached_folder(model_name, revision='fp16').to("cuda")
-    
 
-# Inference is ran for every server call
-# Reference your preloaded global model variable here.
-def inference(model_inputs:dict) -> dict:
+
+def inference(model_inputs:dict):
     global model
 
-    # Parse out your arguments
     prompt = model_inputs.get('prompt', None)
-    steps = model_inputs.get('num_inference_steps', 50)
-    scale = model_inputs.get('guidance_scale', 7)
-    if prompt == None:
-        return {'message': "No prompt provided"}
-    
-    # Run the model
-    result = model(prompt, num_inference_steps=steps, guidance_scale=scale)
+    height = model_inputs.get('height', 768)
+    width = model_inputs.get('width', 768)
+    steps = model_inputs.get('steps', 20)
+    guidance_scale = model_inputs.get('guidance_scale', 9)
+    seed = model_inputs.get('seed', None)
 
-    # Check if result is an image or text
-    image = result.images[0]
+    if not prompt: return {'message': 'No prompt was provided'}
+    
+    generator = None
+    if seed: generator = torch.Generator("cuda").manual_seed(seed)
+    
+    with autocast("cuda"):
+        image = model(prompt, guidance_scale=guidance_scale, height=height, width=width, num_inference_steps=steps, generator=generator).images[0]
+    
     buffered = BytesIO()
-    image.save(buffered,format="JPEG")
+    image.save(buffered, format="JPEG")
     image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-    # Return the results as a dictionary
     return {'image_base64': image_base64}
