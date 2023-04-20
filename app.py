@@ -25,7 +25,7 @@ def inference(model_inputs:dict):
     global model
 
     prompt = model_inputs.get('prompt', None)
-    height = model_inputs.get('height', 768)
+    heigth = model_inputs.get('heigth', 768)
     width = model_inputs.get('width', 768)
     steps = model_inputs.get('steps', 20)
     guidance_scale = model_inputs.get('guidance_scale', 9)
@@ -37,7 +37,7 @@ def inference(model_inputs:dict):
     if seed: generator = torch.Generator("cuda").manual_seed(seed)
     
     with autocast("cuda"):
-        image = model(prompt, guidance_scale=guidance_scale, height=height, width=width, num_inference_steps=steps, generator=generator).images[0]
+        image = model(prompt, guidance_scale=guidance_scale, heigth=heigth, width=width, num_inference_steps=steps, generator=generator).images[0]
     
     buffered = BytesIO()
     image.save(buffered, format="JPEG")
