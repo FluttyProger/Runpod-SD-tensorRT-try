@@ -27,6 +27,16 @@ ENV MODEL_NAME=XpucT/Deliberate
 ADD download.py .
 RUN python3 download.py
 
+RUN git clone https://github.com/huggingface/diffusers
+
+WORKDIR /diffusers
+
+RUN pip install .
+
+WORKDIR /
+
+RUN pip3 install runpod
+
 # Add your custom app code, init() and inference()
 ADD app.py .
 
