@@ -16,7 +16,7 @@ def init():
     scheduler = DDIMScheduler.from_pretrained(model_name, subfolder="scheduler")
 
     model = StableDiffusionPipeline.from_pretrained(model_name,
-                                                    custom_pipeline="stable_diffusion_tensorrt_txt2img",
+                                                    custom_pipeline="stable_diffusion_tensorrt_txt2img_my",
                                                     torch_dtype=torch.float16,
                                                     scheduler=scheduler).set_cached_folder(model_name).to("cuda")
 
