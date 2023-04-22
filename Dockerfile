@@ -14,7 +14,7 @@ RUN rm Anaconda3-2023.03-Linux-x86_64.sh
 
 ENV PATH='$HOME/anaconda3/bin:$PATH'
 
-RUN conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+RUN /root/anaconda3/bin/conda install -y pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
 
 RUN pip3 install --upgrade pip
 ADD requirements.txt requirements.txt
