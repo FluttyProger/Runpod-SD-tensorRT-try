@@ -13,15 +13,19 @@ def init():
     global model
     
     model_name = os.getenv("MODEL_NAME")
-    scheduler = DDIMScheduler.from_pretrained(model_name, subfolder="scheduler")
+    scheduler = DDIMScheduler.from_pretrained("stabilityai/stable-diffusion-2-1",
+                                                subfolder="scheduler")
 
-    model = StableDiffusionPipeline.from_pretrained(model_name,
-                                                    custom_pipeline="stable_diffusion_tensorrt_txt2img_my",
+    pipe = StableDiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-2-1",
+                                                    custom_pipeline="stable_diffusion_tensorrt_txt2img",
+                                                    revision='fp16',
                                                     torch_dtype=torch.float16,
-                                                    scheduler=scheduler)
-    model.set_cached_folder(model_name)
-    
-    model = model.to("cuda")
+                                                    scheduler=scheduler,)
+
+    # re-use cached folder to save ONNX models and TensorRT Engines
+    pipe.set_cached_folder("stabilityai/stable-diffusion-2-1", revision='fp16',)
+
+    pipe = pipe.to("cuda")
 
 
 def inference(model_inputs:dict):
