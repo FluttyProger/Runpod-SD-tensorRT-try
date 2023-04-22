@@ -37,6 +37,10 @@ RUN python3 download.py
 
 ADD app.py .
 
+RUN wget -O /opt/conda/lib/python3.10/site-packages/torch/onnx/_constants.py https://raw.githubusercontent.com/pytorch/pytorch/d06d195bcd960f530f8f0d5a1992ed68d2823d4e/torch/onnx/_constants.py
+
+RUN wget -O /opt/conda/lib/python3.10/site-packages/torch/onnx/symbolic_opset14.py https://raw.githubusercontent.com/pytorch/pytorch/d06d195bcd960f530f8f0d5a1992ed68d2823d4e/torch/onnx/symbolic_opset14.py
+
 EXPOSE 8000
 
 CMD python3 -u server.py
