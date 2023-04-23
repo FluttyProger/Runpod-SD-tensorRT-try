@@ -29,6 +29,7 @@ def init():
     
     model = model.to("cuda")
     model.enable_model_cpu_offload()
+    model.enable_attention_slicing(1)
     model.enable_xformers_memory_efficient_attention()
 
 def inference(model_inputs:dict):
