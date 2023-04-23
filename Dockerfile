@@ -46,7 +46,7 @@ ENV MODEL_REV=main
 
 ADD app.py .
 
-RUN apt-get install --upgrade cuda
+apt-get install --upgrade tensorrt
 
 #RUN wget -O /root/miniconda/envs/py310/lib/python3.10/site-packages/torch/onnx/_constants.py https://raw.githubusercontent.com/pytorch/pytorch/d06d195bcd960f530f8f0d5a1992ed68d2823d4e/torch/onnx/_constants.py
 RUN wget -O /usr/local/lib/python3.10/dist-packages/torch/onnx/_constants.py https://raw.githubusercontent.com/pytorch/pytorch/d06d195bcd960f530f8f0d5a1992ed68d2823d4e/torch/onnx/_constants.py
