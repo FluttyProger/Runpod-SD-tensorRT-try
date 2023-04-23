@@ -4,21 +4,21 @@ WORKDIR /
 
 RUN apt-get update && apt-get install -y git wget
 
-RUN wget https://repo.continuum.io/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh -O ~/miniconda.sh \
- && chmod +x ~/miniconda.sh \
- && ~/miniconda.sh -b -p ~/miniconda \
- && rm ~/miniconda.sh
-ENV PATH=/root/miniconda/bin:$PATH
-ENV CONDA_AUTO_UPDATE_CONDA=false
+# RUN wget https://repo.continuum.io/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh -O ~/miniconda.sh \
+#  && chmod +x ~/miniconda.sh \
+#  && ~/miniconda.sh -b -p ~/miniconda \
+#  && rm ~/miniconda.sh
+# ENV PATH=/root/miniconda/bin:$PATH
+# ENV CONDA_AUTO_UPDATE_CONDA=false
 
-# Create a Python 3.6 environment
-RUN /root/miniconda/bin/conda create -y --name py310 python=3.10 \
- && /root/miniconda/bin/conda clean -ya
-ENV CONDA_DEFAULT_ENV=py310
-ENV CONDA_PREFIX=/root/miniconda/envs/$CONDA_DEFAULT_ENV
-ENV PATH=$CONDA_PREFIX/bin:$PATH
+# # Create a Python 3.6 environment
+# RUN /root/miniconda/bin/conda create -y --name py310 python=3.10 \
+#  && /root/miniconda/bin/conda clean -ya
+# ENV CONDA_DEFAULT_ENV=py310
+# ENV CONDA_PREFIX=/root/miniconda/envs/$CONDA_DEFAULT_ENV
+# ENV PATH=$CONDA_PREFIX/bin:$PATH
 
-RUN /root/miniconda/bin/conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia && /root/miniconda/bin/conda clean -ya
+# RUN /root/miniconda/bin/conda install pytorch torchvision torchaudio pytorch-cuda -c pytorch -c nvidia && /root/miniconda/bin/conda clean -ya
 
 RUN pip3 install --upgrade pip
 ADD requirements.txt requirements.txt
