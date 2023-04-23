@@ -21,7 +21,7 @@ def download_model():
                                                     scheduler=scheduler,)
 
     # re-use cached folder to save ONNX models and TensorRT Engines
-    pipe.set_cached_folder("stabilityai/stable-diffusion-2-1", revision='fp16',)
+    pipe.set_cached_folder("stabilityai/stable-diffusion-2-1", revision='fp16',).to("cuda")
     
 
 if __name__ == "__main__":
