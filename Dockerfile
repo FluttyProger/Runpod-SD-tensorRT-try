@@ -38,6 +38,12 @@ RUN pip install .
 
 WORKDIR /
 
+ARG MODEL_NAME
+ENV MODEL_NAME=XpucT/Deliberate
+
+ARG MODEL_REV
+ENV MODEL_REV=main
+
 ADD app.py .
 
 RUN wget -O /root/miniconda/envs/py310/lib/python3.10/site-packages/torch/onnx/_constants.py https://raw.githubusercontent.com/pytorch/pytorch/d06d195bcd960f530f8f0d5a1992ed68d2823d4e/torch/onnx/_constants.py
