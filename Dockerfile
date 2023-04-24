@@ -39,7 +39,7 @@ RUN pip install .
 WORKDIR /
 
 ARG MODEL_NAME
-ENV MODEL_NAME=Jeroenvv1985/URPM13_Diffusers
+ENV MODEL_NAME=XpucT/Deliberate
 
 ARG MODEL_REV
 ENV MODEL_REV=main
