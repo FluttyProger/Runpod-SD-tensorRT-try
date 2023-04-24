@@ -19,7 +19,7 @@ def init():
                                                 subfolder="scheduler")
     
     model = StableDiffusionPipeline.from_pretrained(model_name,
-                                                    custom_pipeline="stable_diffusion_tensorrt_txt2img_my",
+                                                    custom_pipeline="stable_diffusion_tensorrt_txt2img_ee",
                                                     revision=model_rev,
                                                     torch_dtype=torch.float16,
                                                     scheduler=scheduler)
